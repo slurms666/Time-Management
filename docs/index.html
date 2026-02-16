@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="tab-title">Modern Time Management: Strategies for Success</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body, html { margin: 0; padding: 0; background: var(--bg-light); font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text-main); line-height: 1.6; }
+
+        /* The 404 Disguise Layer */
+        #disguise-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; display: none; background: #fff; color: #000;
+            padding: 40px; font-family: "Times New Roman", Times, serif;
+            pointer-events: none;
+        }
+
+        /* Navigation Bar */
+        nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+        .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.025em; }
+        
+        /* Layout Grid */
+        .page-wrapper { max-width: 1100px; margin: 2rem auto; display: grid; grid-template-columns: 1fr 350px; gap: 2.5rem; padding: 0 1.5rem; }
+
+        /* Article Content */
+        article h1 { font-size: 2.5rem; line-height: 1.2; margin-bottom: 1.5rem; color: #0f172a; }
+        .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .article-body p { margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .article-body h2 { margin-top: 2rem; color: #0f172a; }
+
+        /* Sidebar Control Panel */
+        .sidebar { position: sticky; top: 100px; align-self: start; }
+        .control-card { background: var(--white); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .control-card h3 { margin-top: 0; font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin-bottom: 1rem; }
+
+        /* Buttons & Sliders */
+        .status-badge { display: block; text-align: center; padding: 0.5rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; margin-bottom: 1rem; text-transform: uppercase; }
+        .active { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .inactive { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+        .btn { cursor: pointer; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; width: 100%; margin-top: 0.5rem; transition: 0.2s; font-size: 0.9rem; }
+        .btn-start { background: var(--primary); color: white; }
+        .btn-stealth { background: var(--text-main); color: white; }
+        .btn-stop { background: var(--bg-light); color: var(--text-muted); border: 1px solid var(--border); }
+        .btn:hover { filter: brightness(1.1); }
+
+        /* Stealth UI logic */
+        .stealth-active .page-wrapper, .stealth-active nav { opacity: 0; pointer-events: none; }
+        .stealth-active .sidebar:hover { opacity: 1 !important; z-index: 101; }
+        .stealth-active .control-card { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; }
+        .stealth-active .control-card:hover { opacity: 1; border: 2px solid var(--primary); pointer-events: auto; }
+
+        #fake-cursor { position: fixed; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; display: none; }
+    </style>
+</head>
+<body id="main-body">
+
+<div id="disguise-layer">
+    <h1>Not Found</h1>
+    <p>The requested URL was not found on this server.</p>
+    <hr><address>Apache/2.4.41 (Ubuntu) Server at localhost Port 80</address>
+</div>
+
+<nav>
+    <div class="logo">EduOptimize PRO</div>
+    <div style="font-size: 0.8rem; color: var(--text-muted);">Internal Knowledge Base v4.2</div>
+</nav>
+
+<div id="fake-cursor"></div>
+
+<div class="page-wrapper">
+    <article>
+        <h1>Strategies for Sustained Focus in Digital Environments</h1>
+        <div class="meta">Published Oct 24, 2023 • 12 min read • Written by Dr. A. Sterling</div>
+        
+        <div class="article-body">
+            <p>In the modern workspace, the ability to manage one's time effectively is no longer just a soft skill; it is a vital necessity. With the average worker being interrupted every 11 minutes, reclaiming focus requires both psychological shifts and technical assistance.</p>
+			<p>INSTRUCTIONS: Click 'Enable Optimisation' button' to start mouse movements with clicks - this will click ONLY in the browser window, so don't worry about mis-clicking your apps. 'Toggle Stealth' will display a simulated, common 404 website error page to guard against prying eyes or screenshot capture software (press Esc to end stealth mode). Choose the time between movements with the 'Interval' slider. When active, it will prevent your screen from sleeping. The browser MUST be the only active window for this to work. Finally, use at your own risk & enjoy your time management hack. We've done all we can to mitigate all common methods of presence detection, but no tool is 100% foolproof for 100% of situations. </p>
+            
+            <h2>The Psychology of Deep Work</h2>
+            <p>Cal Newport’s concept of "Deep Work" suggests that professional activities performed in a state of distraction-free concentration push your cognitive capabilities to their limit. These efforts create new value, improve your skill, and are hard to replicate.</p>
+            
+            <p>To achieve this, experts recommend the "Time Blocking" method. Instead of a standard to-do list, you assign specific blocks of time in your calendar for specific tasks. This reduces the cognitive load of deciding what to do next.</p>
+
+            <h2>Technical Optimization</h2>
+            <p>Utilizing interactive tools to maintain a presence within your digital ecosystem can paradoxically assist in focus by preventing the constant "re-login" fatigue caused by overly aggressive system timeouts. By maintaining an active session, users can focus on their offline reading and deep thinking without technical friction.</p>
+
+            <p><i>Continue reading for advanced insights into the Eisenhower Matrix and Pareto Principle...</i></p>
+        </div>
+    </article>
+
+    <div class="sidebar">
+        <div class="control-card">
+            <h3>Interactive Focus Tool</h3>
+            <div id="status" class="status-badge inactive">System: Standby</div>
+            
+            <div style="font-size: 0.8rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                <span>Interval</span>
+                <span id="int-lbl">5s</span>
+            </div>
+            <input type="range" id="slider" min="3" max="60" value="5" style="width: 100%; margin-bottom: 1rem;">
+
+            <button class="btn btn-start" id="start-btn" onclick="startSim()">Enable Optimization</button>
+            <button class="btn btn-stealth" onclick="toggleStealth()">Toggle Stealth (Esc)</button>
+            <button class="btn btn-stop" onclick="stopSim()">Full Reset</button>
+            
+            <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
+                Internal Use Only. Toggle stealth for focus.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.history.replaceState({}, '', window.location.href);
+
+    let activeTimeout = null;
+    let wakeLock = null;
+    const body = document.getElementById('main-body');
+    const disguise = document.getElementById('disguise-layer');
+    const statusBox = document.getElementById('status');
+    const title = document.getElementById('tab-title');
+    const slider = document.getElementById('slider');
+
+    slider.oninput = () => document.getElementById('int-lbl').innerText = `${slider.value}s`;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") toggleStealth();
+    });
+
+    function toggleStealth() {
+        const isActivating = !body.classList.contains('stealth-active');
+        if (isActivating) {
+            body.classList.add('stealth-active');
+            disguise.style.display = 'block';
+            title.innerText = "404 Not Found";
+        } else {
+            body.classList.remove('stealth-active');
+            disguise.style.display = 'none';
+            title.innerText = "Modern Time Management: Strategies for Success";
+        }
+    }
+
+    async function startSim() {
+        stopSim();
+        if ('wakeLock' in navigator) {
+            try { wakeLock = await navigator.wakeLock.request('screen'); } catch (err) {}
+        }
+        statusBox.innerText = "Optimization Active";
+        statusBox.className = "status-badge active";
+        document.getElementById('start-btn').style.opacity = '0.5';
+        moveCursor();
+    }
+
+    function moveCursor() {
+        const cursor = document.getElementById('fake-cursor');
+        cursor.style.display = 'block';
+        const x = Math.random() * (window.innerWidth - 80) + 40;
+        const y = Math.random() * (window.innerHeight - 80) + 40;
+        const dur = Math.random() * 1.5 + 0.8;
+        
+        cursor.style.transition = `all ${dur}s cubic-bezier(0.4, 0, 0.2, 1)`;
+        cursor.style.left = x + 'px';
+        cursor.style.top = y + 'px';
+
+        setTimeout(() => {
+            if (statusBox.classList.contains('active')) {
+                cursor.style.transform = 'scale(0.5)';
+                document.body.dispatchEvent(new MouseEvent('click', { bubbles: true, view: window }));
+                setTimeout(() => { cursor.style.transform = 'scale(1)'; }, 200);
+            }
+        }, dur * 1000);
+
+        if (statusBox.classList.contains('active')) {
+            const base = parseInt(slider.value) * 1000;
+            activeTimeout = setTimeout(moveCursor, base + (Math.random() * 2000 - 1000));
+        }
+    }
+
+    function stopSim() {
+        clearTimeout(activeTimeout);
+        if (wakeLock) { wakeLock.release().then(() => wakeLock = null); }
+        statusBox.innerText = "System: Standby";
+        statusBox.className = "status-badge inactive";
+        document.getElementById('fake-cursor').style.display = 'none';
+        document.getElementById('start-btn').style.opacity = '1';
+    }
+</script>
+</body>
+</html>
