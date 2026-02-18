@@ -3,4 +3,5 @@ Allow: /
 
 # Direct search engines to your sitemap
 
-Sitemap: https://slurms666.github.io/Time-Managment/sitemap.xml
+Sitemap: https://slurms666.github.io/Time-Management/sitemap.xml
+
