@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 
 # Direct search engines to your sitemap
-Sitemap: https://yourusername.github.io/your-repo-name/sitemap.xml
+
+Sitemap: https://slurms666.github.io/Time-Managment/sitemap.xml
