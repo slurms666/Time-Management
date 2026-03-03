@@ -30,6 +30,20 @@
         /* Navigation Bar */
         nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
         .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.025em; }
+
+        .fake-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            user-select: none;
+        }
+        .fake-menu span { padding: 0.3rem 0.5rem; border-radius: 6px; }
+        .fake-menu span:hover { background: #eef2ff; color: #1e40af; }
         
         /* Layout Grid */
         .page-wrapper { max-width: 1100px; margin: 2rem auto; display: grid; grid-template-columns: 1fr 350px; gap: 2.5rem; padding: 0 1.5rem; }
@@ -78,15 +92,51 @@
 <body id="main-body">
 
 <div id="disguise-layer">
-    <h1>Not Found</h1>
-    <p>The requested URL was not found on this server.</p>
-    <hr><address>Apache/2.4.41 (Ubuntu) Server at localhost Port 80</address>
+    <div id="stealth-404">
+        <h1>Not Found</h1>
+        <p>The requested URL was not found on this server.</p>
+        <hr><address>Apache/2.4.41 (Ubuntu) Server at localhost Port 80</address>
+    </div>
+
+    <div id="stealth-article" style="display:none; color: var(--text-main); background: var(--bg-light); min-height: 100%; margin: -40px;">
+        <nav style="position: static;">
+            <div class="logo">EduOptimize PRO</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Internal Knowledge Base v4.2</div>
+        </nav>
+        <div class="fake-menu">
+            <span>Dashboard</span>
+            <span>Playbooks</span>
+            <span>Templates</span>
+            <span>Team Calendar</span>
+            <span>Reporting</span>
+            <span>Settings</span>
+        </div>
+        <div style="max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 3rem;">
+            <h1 style="font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.75rem; color: #0f172a;">Practical Time Management for High-Interruption Workdays</h1>
+            <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">Published Jan 18, 2026 • 9 min read • Productivity Research Desk</div>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Most people do not fail at time management because they are lazy. They fail because their day is designed for reaction instead of intention. Notifications, quick questions, context switching, and endless “just one minute” requests pull attention in ten directions before meaningful work even starts. If your calendar looks full but your priorities are not moving, the issue is usually structure, not effort.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">A useful first step is distinguishing between <strong>time spent</strong> and <strong>value created</strong>. Time spent is easy to measure: hours at a desk, meetings attended, emails answered. Value created is harder and often delayed: a proposal drafted, a problem solved, a decision clarified, a process improved. High performers focus on value blocks—protected periods where one important task gets full attention and a clear definition of done.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Start by defining three outcomes for the day before opening chat or email. Keep them specific and finishable. “Work on project” is vague; “draft section two and send for review” is concrete. Then assign each outcome to a calendar block. This is where many systems fail: they list priorities but never reserve time for them. If a task has no time block, it is not a plan—it is a wish.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Next, build interruption buffers. In fast-moving teams, interruptions are guaranteed, so pretending they will not happen creates frustration. Add short response windows between focus blocks for messages, approvals, and lightweight admin work. These buffers reduce anxiety because you know there is a designated time to respond, and they protect deep work from being fragmented into unusable pieces.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Energy management matters as much as calendar management. If your best thinking happens in the morning, schedule analytical work then and move routine tasks to lower-energy hours. Use a simple rule: hard tasks at peak energy, easy tasks at low energy. Over time, this alignment improves output quality without requiring longer hours.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Finally, close each day with a ten-minute reset. Review what moved forward, what stalled, and why. Carry over unfinished work intentionally—do not let it drift. A short daily reset prevents small misses from becoming a backlog crisis and gives tomorrow a clean, realistic starting point. Good time management is not about squeezing every second. It is about protecting attention, choosing deliberately, and building systems that make meaningful progress repeatable.</p>
+        </div>
+    </div>
 </div>
 
 <nav>
     <div class="logo">EduOptimize PRO</div>
     <div style="font-size: 0.8rem; color: var(--text-muted);">Internal Knowledge Base v4.2</div>
 </nav>
+
+<div class="fake-menu">
+    <span>Dashboard</span>
+    <span>Playbooks</span>
+    <span>Templates</span>
+    <span>Team Calendar</span>
+    <span>Reporting</span>
+    <span>Settings</span>
+</div>
 
 <div id="fake-cursor"></div>
 
@@ -133,6 +183,13 @@
             </div>
 
             <button class="btn btn-start" id="start-btn" onclick="startSim()">Start</button>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.6rem; margin-top:0.55rem; font-size:0.75rem; color: var(--text-muted);">
+                <label for="stealth-mode">Stealth mode</label>
+                <select id="stealth-mode" style="flex:1; max-width:180px; padding:0.35rem; border:1px solid var(--border); border-radius:6px; font-size:0.78rem;">
+                    <option value="404" selected>404 Error Page</option>
+                    <option value="article">Time Management Article</option>
+                </select>
+            </div>
             <button class="btn btn-stealth" onclick="toggleStealth()">Toggle Stealth (Esc)</button>
             <button class="btn btn-stop" onclick="stopSim()">Stop</button>
             
@@ -155,6 +212,9 @@
     const slider = document.getElementById('slider');
     const randomPauseToggle = document.getElementById('random-pause-toggle');
     const pauseSecondsInput = document.getElementById('pause-seconds');
+    const stealthModeSelect = document.getElementById('stealth-mode');
+    const stealth404 = document.getElementById('stealth-404');
+    const stealthArticle = document.getElementById('stealth-article');
 
     slider.oninput = () => document.getElementById('int-lbl').innerText = `${slider.value}s`;
 
@@ -172,9 +232,15 @@
     function toggleStealth() {
         const isActivating = !body.classList.contains('stealth-active');
         if (isActivating) {
+            const mode = stealthModeSelect.value;
+            const isArticle = mode === 'article';
+
+            stealth404.style.display = isArticle ? 'none' : 'block';
+            stealthArticle.style.display = isArticle ? 'block' : 'none';
+
             body.classList.add('stealth-active');
             disguise.style.display = 'block';
-            title.innerText = "404 Not Found";
+            title.innerText = isArticle ? "Time Management Knowledge Base" : "404 Not Found";
         } else {
             body.classList.remove('stealth-active');
             disguise.style.display = 'none';
