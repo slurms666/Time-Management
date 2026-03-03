@@ -116,11 +116,21 @@
             <h3>Interactive Focus Tool</h3>
             <div id="status" class="status-badge inactive">System: Standby</div>
             
-            <div style="font-size: 0.8rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
-                <span>Interval</span>
-                <span id="int-lbl">5s</span>
+            <div style="font-size: 0.8rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span>Interval</span>
+                    <span id="int-lbl">5s</span>
+                </div>
+                <label style="display:flex; align-items:center; gap:0.35rem; font-size:0.75rem; color: var(--text-muted);">
+                    <input type="checkbox" id="random-pause-toggle">
+                    Random pause
+                </label>
             </div>
-            <input type="range" id="slider" min="3" max="60" value="5" style="width: 100%; margin-bottom: 1rem;">
+            <input type="range" id="slider" min="3" max="60" value="5" style="width: 100%; margin-bottom: 0.6rem;">
+            <div style="display:flex; align-items:center; justify-content: space-between; font-size:0.75rem; color: var(--text-muted); margin-bottom: 1rem;">
+                <label for="pause-seconds">Pause length (seconds)</label>
+                <input type="number" id="pause-seconds" min="1" step="1" value="20" style="width:72px; padding:0.2rem 0.35rem; border:1px solid var(--border); border-radius:6px; font-size:0.8rem;">
+            </div>
 
             <button class="btn btn-start" id="start-btn" onclick="startSim()">Start</button>
             <button class="btn btn-stealth" onclick="toggleStealth()">Toggle Stealth (Esc)</button>
@@ -143,8 +153,17 @@
     const statusBox = document.getElementById('status');
     const title = document.getElementById('tab-title');
     const slider = document.getElementById('slider');
+    const randomPauseToggle = document.getElementById('random-pause-toggle');
+    const pauseSecondsInput = document.getElementById('pause-seconds');
 
     slider.oninput = () => document.getElementById('int-lbl').innerText = `${slider.value}s`;
+
+    function getPauseMs() {
+        const parsed = parseInt(pauseSecondsInput.value, 10);
+        const safeSeconds = Number.isFinite(parsed) && parsed > 0 ? parsed : 20;
+        pauseSecondsInput.value = safeSeconds;
+        return safeSeconds * 1000;
+    }
 
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") toggleStealth();
@@ -201,7 +220,13 @@
 
         if (statusBox.classList.contains('active')) {
             const base = parseInt(slider.value) * 1000;
-            activeTimeout = setTimeout(moveCursor, base + (Math.random() * 2000 - 1000));
+            let nextDelay = base + (Math.random() * 2000 - 1000);
+
+            if (randomPauseToggle.checked && Math.random() < 0.25) {
+                nextDelay += getPauseMs();
+            }
+
+            activeTimeout = setTimeout(moveCursor, Math.max(500, nextDelay));
         }
     }
 
