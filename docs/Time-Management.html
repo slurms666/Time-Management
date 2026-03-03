@@ -71,7 +71,7 @@
         .btn:hover { filter: brightness(1.1); }
 
         /* Stealth UI logic */
-        .stealth-active .page-wrapper, .stealth-active nav { opacity: 0; pointer-events: none; }
+        .stealth-active .page-wrapper, .stealth-active .main-nav, .stealth-active .main-fake-menu { opacity: 0; pointer-events: none; }
         .stealth-active .sidebar:hover { opacity: 1 !important; z-index: 101; }
         .stealth-active .control-card { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; }
         .stealth-active .control-card:hover { opacity: 1; border: 2px solid var(--primary); pointer-events: auto; }
@@ -124,12 +124,12 @@
     </div>
 </div>
 
-<nav>
+<nav class="main-nav">
     <div class="logo">EduOptimize PRO</div>
     <div style="font-size: 0.8rem; color: var(--text-muted);">Internal Knowledge Base v4.2</div>
 </nav>
 
-<div class="fake-menu">
+<div class="fake-menu main-fake-menu">
     <span>Dashboard</span>
     <span>Playbooks</span>
     <span>Templates</span>
