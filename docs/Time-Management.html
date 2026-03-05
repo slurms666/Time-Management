@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="tab-title">Time Management Screen Awake Guide</title>
+    <title id="tab-title">Modern Time Management: Strategies for Success</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -16,6 +16,10 @@
 
         body, html { margin: 0; padding: 0; background: var(--bg-light); font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text-main); line-height: 1.6; }
 
+        /* Hide native cursor while simulation is active */
+        .sim-active, .sim-active * { cursor: none !important; }
+
+        /* The 404 Disguise Layer */
         #disguise-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 100; display: none; background: #fff; color: #000;
@@ -23,111 +27,196 @@
             pointer-events: none;
         }
 
+        /* Navigation Bar */
         nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
         .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.025em; }
+
+        .fake-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            user-select: none;
+        }
+        .fake-menu span { padding: 0.3rem 0.5rem; border-radius: 6px; }
+        .fake-menu span:hover { background: #eef2ff; color: #1e40af; }
+        
+        /* Layout Grid */
         .page-wrapper { max-width: 1100px; margin: 2rem auto; display: grid; grid-template-columns: 1fr 350px; gap: 2.5rem; padding: 0 1.5rem; }
 
-        article h1 { font-size: 2.25rem; line-height: 1.2; margin-bottom: 1rem; color: #0f172a; }
-        .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .article-body p { margin-bottom: 1.25rem; font-size: 1.05rem; }
-        .article-body h2 { margin-top: 1.75rem; color: #0f172a; }
-        .article-body ul { margin: 0 0 1rem 1.2rem; }
+        /* Article Content */
+        article h1 { font-size: 2.5rem; line-height: 1.2; margin-bottom: 1.5rem; color: #0f172a; }
+        .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .article-body p { margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .article-body h2 { margin-top: 2rem; color: #0f172a; }
 
+        /* Sidebar Control Panel */
         .sidebar { position: sticky; top: 100px; align-self: start; }
         .control-card { background: var(--white); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .control-card h3 { margin-top: 0; font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin-bottom: 1rem; }
 
+        /* Buttons & Sliders */
         .status-badge { display: block; text-align: center; padding: 0.5rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; margin-bottom: 1rem; text-transform: uppercase; }
         .active { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         .inactive { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
         .btn { cursor: pointer; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; width: 100%; margin-top: 0.5rem; transition: 0.2s; font-size: 0.9rem; }
-        .btn-start { background: var(--primary); color: white; }
+        .btn-start { background: #16a34a; color: white; }
         .btn-stealth { background: var(--text-main); color: white; }
-        .btn-stop { background: var(--bg-light); color: var(--text-muted); border: 1px solid var(--border); }
+        .btn-stop { background: #dc2626; color: white; border: 1px solid #b91c1c; }
         .btn:hover { filter: brightness(1.1); }
 
-        .stealth-active .page-wrapper, .stealth-active nav { opacity: 0; pointer-events: none; }
+        /* Stealth UI logic */
+        .stealth-active .page-wrapper, .stealth-active .main-nav, .stealth-active .main-fake-menu { opacity: 0; pointer-events: none; }
         .stealth-active .sidebar:hover { opacity: 1 !important; z-index: 101; }
         .stealth-active .control-card { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; }
         .stealth-active .control-card:hover { opacity: 1; border: 2px solid var(--primary); pointer-events: auto; }
 
-        #fake-cursor { position: fixed; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; display: none; }
+        #fake-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 2l7.8 18 2.5-5.2L19 12.3z' fill='white' stroke='%230f172a' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35));
+            transform-origin: top left;
+        }
     </style>
 </head>
 <body id="main-body">
 
 <div id="disguise-layer">
-    <h1>Not Found</h1>
-    <p>The requested URL was not found on this server.</p>
-    <hr><address>Apache/2.4.41 (Ubuntu) Server at localhost Port 80</address>
+    <div id="stealth-404">
+        <h1>Not Found</h1>
+        <p>The requested URL was not found on this server.</p>
+        <hr><address>Apache/2.4.41 (Ubuntu) Server at localhost Port 80</address>
+    </div>
+
+    <div id="stealth-article" style="display:none; color: var(--text-main); background: var(--bg-light); min-height: 100%; margin: -40px; font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6;">
+        <nav>
+            <div class="logo">EduOptimize PRO</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Internal Knowledge Base v4.2</div>
+        </nav>
+        <div class="fake-menu">
+            <span>Dashboard</span>
+            <span>Playbooks</span>
+            <span>Templates</span>
+            <span>Team Calendar</span>
+            <span>Reporting</span>
+            <span>Settings</span>
+        </div>
+        <div style="max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 3rem;">
+            <h1 style="font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.75rem; color: #0f172a;">Practical Time Management for High-Interruption Workdays</h1>
+            <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">Published Jan 18, 2026 • 9 min read • Productivity Research Desk</div>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Most people do not fail at time management because they are lazy. They fail because their day is designed for reaction instead of intention. Notifications, quick questions, context switching, and endless “just one minute” requests pull attention in ten directions before meaningful work even starts. If your calendar looks full but your priorities are not moving, the issue is usually structure, not effort.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">A useful first step is distinguishing between <strong>time spent</strong> and <strong>value created</strong>. Time spent is easy to measure: hours at a desk, meetings attended, emails answered. Value created is harder and often delayed: a proposal drafted, a problem solved, a decision clarified, a process improved. High performers focus on value blocks—protected periods where one important task gets full attention and a clear definition of done.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Start by defining three outcomes for the day before opening chat or email. Keep them specific and finishable. “Work on project” is vague; “draft section two and send for review” is concrete. Then assign each outcome to a calendar block. This is where many systems fail: they list priorities but never reserve time for them. If a task has no time block, it is not a plan—it is a wish.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Next, build interruption buffers. In fast-moving teams, interruptions are guaranteed, so pretending they will not happen creates frustration. Add short response windows between focus blocks for messages, approvals, and lightweight admin work. These buffers reduce anxiety because you know there is a designated time to respond, and they protect deep work from being fragmented into unusable pieces.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Energy management matters as much as calendar management. If your best thinking happens in the morning, schedule analytical work then and move routine tasks to lower-energy hours. Use a simple rule: hard tasks at peak energy, easy tasks at low energy. Over time, this alignment improves output quality without requiring longer hours.</p>
+            <p style="font-size: 1.05rem; margin-bottom: 1rem;">Finally, close each day with a ten-minute reset. Review what moved forward, what stalled, and why. Carry over unfinished work intentionally—do not let it drift. A short daily reset prevents small misses from becoming a backlog crisis and gives tomorrow a clean, realistic starting point. Good time management is not about squeezing every second. It is about protecting attention, choosing deliberately, and building systems that make meaningful progress repeatable.</p>
+        </div>
+    </div>
 </div>
 
-<nav>
-    <div class="logo">Time Management</div>
-    <div style="font-size: 0.8rem; color: var(--text-muted);">Browser utility for screen-awake workflows</div>
+<nav class="main-nav">
+    <div class="logo">EduOptimize PRO</div>
+    <div style="font-size: 0.8rem; color: var(--text-muted);">Internal Knowledge Base v4.2</div>
 </nav>
+
+<div class="fake-menu main-fake-menu">
+    <span>Dashboard</span>
+    <span>Playbooks</span>
+    <span>Templates</span>
+    <span>Team Calendar</span>
+    <span>Reporting</span>
+    <span>Settings</span>
+</div>
 
 <div id="fake-cursor"></div>
 
 <div class="page-wrapper">
     <article>
-        <h1>Keep your screen awake during focused work</h1>
-        <div class="meta">Updated 2026 • Browser-based utility • Local operation</div>
-
+        <h1>Strategies for Sustained Focus in Digital Environments</h1>
+        <div class="meta">Published Oct 24, 2023 • 12 min read • Written by Dr. A. Sterling</div>
+        
         <div class="article-body">
-            <p>This tool helps reduce interruptions from idle sleep during legitimate productivity tasks. While active, it simulates small pointer movement and periodic clicks inside the browser window.</p>
-            <p><strong>How to use:</strong> Click <strong>Start Screen Awake</strong> to activate movement. Use <strong>Interval</strong> to control how often movement occurs. <strong>Toggle Focus View</strong> switches to a plain 404-style cover screen (Esc to exit). Click <strong>Stop</strong> to fully deactivate.</p>
+            <p>In the modern workspace, the ability to manage one's time effectively is no longer just a soft skill; it is a vital necessity. With the average worker being interrupted every 11 minutes, reclaiming focus requires both psychological shifts and technical assistance.</p>
+			<div style="background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; padding:0.85rem 1rem; margin-bottom:1.5rem;">
+				<p style="margin:0 0 0.6rem 0;"><strong>INSTRUCTIONS:</strong></p>
+				<ul style="margin:0; padding-left:1.1rem;">
+					<li>Click <strong>Start</strong> to begin simulated mouse movement and in-page clicks immediately (native cursor hides while active).</li>
+					<li>Clicks are generated <strong>inside the browser page only</strong>, so external apps are not clicked.</li>
+					<li>Set base movement speed with the <strong>Interval</strong> slider.</li>
+					<li><strong>Random pause</strong> is enabled by default. You can untick it, or keep it on and set <strong>Pause length (seconds)</strong> (default: 20).</li>
+					<li><strong>Stop manually (infinite run)</strong> is enabled by default. Untick it to enable <strong>Run time (minutes)</strong> and auto-stop after your chosen duration.</li>
+					<li>Choose stealth content from the <strong>Stealth mode</strong> dropdown: <strong>404 Error Page</strong> or <strong>Time Management Article</strong>.</li>
+					<li>Use <strong>Toggle Stealth (Esc)</strong> to enter/exit stealth view, or press <strong>Esc</strong>.</li>
+					<li>Stop activity anytime with <strong>Stop (Space)</strong> or the <strong>Space</strong> hotkey.</li>
+					<li>While active, the page attempts to keep the display awake via wake lock support.</li>
+					<li>For best reliability, keep this browser tab as the active window.</li>
+					<li>Use at your own risk; no simulation approach is guaranteed foolproof in every environment.</li>
+				</ul>
+			</div>
+            
+            <h2>The Psychology of Deep Work</h2>
+            <p>Cal Newport’s concept of "Deep Work" suggests that professional activities performed in a state of distraction-free concentration push your cognitive capabilities to their limit. These efforts create new value, improve your skill, and are hard to replicate.</p>
+            
+            <p>To achieve this, experts recommend the "Time Blocking" method. Instead of a standard to-do list, you assign specific blocks of time in your calendar for specific tasks. This reduces the cognitive load of deciding what to do next.</p>
 
-            <h2>Legitimate use cases</h2>
-            <ul>
-                <li>Presentations and screen sharing sessions</li>
-                <li>Monitoring dashboards and log consoles</li>
-                <li>Long downloads and software installs</li>
-                <li>Long-form reading and documentation review</li>
-                <li>Remote desktop sessions that disconnect on inactivity</li>
-                <li>Accessibility situations where repeated input is difficult</li>
-            </ul>
+            <h2>Technical Optimization</h2>
+            <p>Utilizing interactive tools to maintain a presence within your digital ecosystem can paradoxically assist in focus by preventing the constant "re-login" fatigue caused by overly aggressive system timeouts. By maintaining an active session, users can focus on their offline reading and deep thinking without technical friction.</p>
 
-            <h2>Features</h2>
-            <ul>
-                <li>Start/Stop controls</li>
-                <li>Active/Inactive status indicator</li>
-                <li>Adjustable interval</li>
-                <li>Lightweight browser-based operation</li>
-            </ul>
-
-            <h2>Privacy</h2>
-            <p>Runs locally in your browser. No analytics libraries are included.</p>
-
-            <h2>Responsible use</h2>
-            <p>This utility is for legitimate productivity scenarios only. Do not use it to bypass, undermine, or misrepresent activity to workplace monitoring or productivity systems. Use it in line with your organization’s policies.</p>
-
-            <h2>FAQ</h2>
-            <p><strong>Does this install anything?</strong> No, it runs in the browser.</p>
-            <p><strong>Can I change how often it runs?</strong> Yes, use the interval slider.</p>
-            <p><strong>Does it collect data?</strong> No tracking or analytics scripts are included.</p>
+            <p><i>Continue reading for advanced insights into the Eisenhower Matrix and Pareto Principle...</i></p>
         </div>
     </article>
 
     <div class="sidebar">
         <div class="control-card">
-            <h3>Screen Awake Controls</h3>
-            <div id="status" class="status-badge inactive">System: Standby</div>
-
-            <div style="font-size: 0.8rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
-                <span>Interval</span>
-                <span id="int-lbl">5s</span>
+            <h3>Interactive Focus Tool</h3>
+            <div id="status" class="status-badge inactive">Status: Standby</div>
+            
+            <div style="font-size: 0.8rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span>Interval</span>
+                    <span id="int-lbl">5s</span>
+                </div>
+                <label style="display:flex; align-items:center; gap:0.35rem; font-size:0.75rem; color: var(--text-muted);">
+                    <input type="checkbox" id="random-pause-toggle" checked>
+                    Random pause
+                </label>
             </div>
-            <input type="range" id="slider" min="3" max="60" value="5" style="width: 100%; margin-bottom: 1rem;">
-
-            <button class="btn btn-start" id="start-btn" onclick="startSim()">Start Screen Awake</button>
-            <button class="btn btn-stealth" onclick="toggleStealth()">Toggle Focus View (Esc)</button>
-            <button class="btn btn-stop" onclick="stopSim()">Stop</button>
-
-            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
-                Keeps small movement active in this browser tab while enabled.
+            <input type="range" id="slider" min="3" max="60" value="5" style="width: 100%; margin-bottom: 0.6rem;">
+            <div style="display:flex; align-items:center; justify-content: space-between; font-size:0.75rem; color: var(--text-muted); margin-bottom: 1rem;">
+                <label for="pause-seconds">Pause length (seconds)</label>
+                <input type="number" id="pause-seconds" min="1" step="1" value="20" style="width:72px; padding:0.2rem 0.35rem; border:1px solid var(--border); border-radius:6px; font-size:0.8rem;">
             </div>
+            <div style="display:flex; align-items:center; justify-content: space-between; gap:0.5rem; font-size:0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                <label style="display:flex; align-items:center; gap:0.35rem;">
+                    <input type="checkbox" id="manual-stop-toggle" checked>
+                    Stop manually (infinite run)
+                </label>
+            </div>
+            <div style="display:flex; align-items:center; justify-content: space-between; font-size:0.75rem; color: var(--text-muted); margin-bottom: 1rem;">
+                <label for="run-minutes">Run time (minutes)</label>
+                <input type="number" id="run-minutes" min="1" step="1" value="60" disabled style="width:72px; padding:0.2rem 0.35rem; border:1px solid var(--border); border-radius:6px; font-size:0.8rem; background:#e2e8f0; color:#64748b;">
+            </div>
+
+            <button class="btn btn-start" id="start-btn" onclick="startSim()">Start</button>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.6rem; margin-top:0.55rem; font-size:0.75rem; color: var(--text-muted);">
+                <label for="stealth-mode">Stealth mode</label>
+                <select id="stealth-mode" style="flex:1; max-width:180px; padding:0.35rem; border:1px solid var(--border); border-radius:6px; font-size:0.78rem;">
+                    <option value="404">404 Error Page</option>
+                    <option value="article" selected>Time Management Article</option>
+                </select>
+            </div>
+            <button class="btn btn-stealth" onclick="toggleStealth()">Toggle Stealth (Esc)</button>
+            <button class="btn btn-stop" onclick="stopSim()">Stop (Space)</button>
         </div>
     </div>
 </div>
@@ -136,73 +225,79 @@
     window.history.replaceState({}, '', window.location.href);
 
     let activeTimeout = null;
+    let runLimitTimeout = null;
     let wakeLock = null;
-    let wakeVideo = null;
-    let wakeVideoPauseHandler = null;
     const body = document.getElementById('main-body');
     const disguise = document.getElementById('disguise-layer');
     const statusBox = document.getElementById('status');
     const title = document.getElementById('tab-title');
     const slider = document.getElementById('slider');
+    const randomPauseToggle = document.getElementById('random-pause-toggle');
+    const pauseSecondsInput = document.getElementById('pause-seconds');
+    const manualStopToggle = document.getElementById('manual-stop-toggle');
+    const runMinutesInput = document.getElementById('run-minutes');
+    const stealthModeSelect = document.getElementById('stealth-mode');
+    const stealth404 = document.getElementById('stealth-404');
+    const stealthArticle = document.getElementById('stealth-article');
 
     slider.oninput = () => document.getElementById('int-lbl').innerText = `${slider.value}s`;
 
+    function getPauseMs() {
+        const parsed = parseInt(pauseSecondsInput.value, 10);
+        const safeSeconds = Number.isFinite(parsed) && parsed > 0 ? parsed : 20;
+        pauseSecondsInput.value = safeSeconds;
+        return safeSeconds * 1000;
+    }
+
+    function updateRunLimitInputState() {
+        const manual = manualStopToggle.checked;
+        runMinutesInput.disabled = manual;
+        runMinutesInput.style.background = manual ? '#e2e8f0' : '#ffffff';
+        runMinutesInput.style.color = manual ? '#64748b' : '#0f172a';
+    }
+
+    function getRunLimitMs() {
+        const parsed = parseInt(runMinutesInput.value, 10);
+        const safeMinutes = Number.isFinite(parsed) && parsed > 0 ? parsed : 60;
+        runMinutesInput.value = safeMinutes;
+        return safeMinutes * 60 * 1000;
+    }
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") toggleStealth();
+        if (e.key === "Escape") {
+            toggleStealth();
+            return;
+        }
+
+        const targetTag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+        const typingTarget = targetTag === 'input' || targetTag === 'textarea' || targetTag === 'select' || (e.target && e.target.isContentEditable);
+
+        if (!typingTarget && e.code === 'Space' && statusBox.classList.contains('active')) {
+            e.preventDefault();
+            stopSim();
+        }
     });
+
+    manualStopToggle.addEventListener('change', updateRunLimitInputState);
+    updateRunLimitInputState();
 
     function toggleStealth() {
         const isActivating = !body.classList.contains('stealth-active');
         if (isActivating) {
+            const mode = stealthModeSelect.value;
+            const isArticle = mode === 'article';
+
+            stealth404.style.display = isArticle ? 'none' : 'block';
+            stealthArticle.style.display = isArticle ? 'block' : 'none';
+
             body.classList.add('stealth-active');
             disguise.style.display = 'block';
-            title.innerText = "404 Not Found";
+            title.innerText = isArticle ? "Time Management Knowledge Base" : "404 Not Found";
         } else {
             body.classList.remove('stealth-active');
             disguise.style.display = 'none';
-            title.innerText = "Time Management Screen Awake Guide";
+            title.innerText = "Modern Time Management: Strategies for Success";
         }
-    }
-
-    function startWakeLoop() {
-        if (wakeVideo) return;
-
-        wakeVideo = document.createElement('video');
-        wakeVideo.src = '/assets/keepawake.mp4';
-        wakeVideo.muted = true;
-        wakeVideo.loop = true;
-        wakeVideo.autoplay = true;
-        wakeVideo.playsInline = true;
-        wakeVideo.setAttribute('aria-hidden', 'true');
-        wakeVideo.style.position = 'fixed';
-        wakeVideo.style.width = '1px';
-        wakeVideo.style.height = '1px';
-        wakeVideo.style.opacity = '0.01';
-        wakeVideo.style.pointerEvents = 'none';
-        wakeVideo.style.bottom = '0';
-        wakeVideo.style.right = '0';
-        wakeVideo.style.zIndex = '-1';
-
-        wakeVideoPauseHandler = () => {
-            if (wakeVideo) {
-                wakeVideo.play().catch(() => {});
-            }
-        };
-        wakeVideo.addEventListener('pause', wakeVideoPauseHandler);
-
-        document.body.appendChild(wakeVideo);
-        wakeVideo.play().catch(() => {});
-    }
-
-    function stopWakeLoop() {
-        if (!wakeVideo) return;
-        wakeVideo.pause();
-        if (wakeVideoPauseHandler) {
-            wakeVideo.removeEventListener('pause', wakeVideoPauseHandler);
-        }
-        wakeVideo.remove();
-        wakeVideo = null;
-        wakeVideoPauseHandler = null;
     }
 
     async function startSim() {
@@ -210,10 +305,17 @@
         if ('wakeLock' in navigator) {
             try { wakeLock = await navigator.wakeLock.request('screen'); } catch (err) {}
         }
-        startWakeLoop();
-        statusBox.innerText = "Screen Awake: Active";
+        body.classList.add('sim-active');
+        statusBox.innerText = "Active";
         statusBox.className = "status-badge active";
         document.getElementById('start-btn').style.opacity = '0.5';
+
+        if (!manualStopToggle.checked) {
+            runLimitTimeout = setTimeout(() => {
+                if (statusBox.classList.contains('active')) stopSim();
+            }, getRunLimitMs());
+        }
+
         moveCursor();
     }
 
@@ -223,30 +325,43 @@
         const x = Math.random() * (window.innerWidth - 80) + 40;
         const y = Math.random() * (window.innerHeight - 80) + 40;
         const dur = Math.random() * 1.5 + 0.8;
-
+        
         cursor.style.transition = `all ${dur}s cubic-bezier(0.4, 0, 0.2, 1)`;
         cursor.style.left = x + 'px';
         cursor.style.top = y + 'px';
 
         setTimeout(() => {
             if (statusBox.classList.contains('active')) {
-                cursor.style.transform = 'scale(0.5)';
-                document.body.dispatchEvent(new MouseEvent('click', { bubbles: true, view: window }));
-                setTimeout(() => { cursor.style.transform = 'scale(1)'; }, 200);
+                cursor.style.transform = 'scale(0.92)';
+                document.body.dispatchEvent(new MouseEvent('click', {
+                    bubbles: true,
+                    view: window,
+                    clientX: x + 2,
+                    clientY: y + 2
+                }));
+                setTimeout(() => { cursor.style.transform = 'scale(1)'; }, 160);
             }
         }, dur * 1000);
 
         if (statusBox.classList.contains('active')) {
             const base = parseInt(slider.value) * 1000;
-            activeTimeout = setTimeout(moveCursor, base + (Math.random() * 2000 - 1000));
+            let nextDelay = base + (Math.random() * 2000 - 1000);
+
+            if (randomPauseToggle.checked && Math.random() < 0.25) {
+                nextDelay += getPauseMs();
+            }
+
+            activeTimeout = setTimeout(moveCursor, Math.max(500, nextDelay));
         }
     }
 
     function stopSim() {
         clearTimeout(activeTimeout);
+        clearTimeout(runLimitTimeout);
+        runLimitTimeout = null;
+        body.classList.remove('sim-active');
         if (wakeLock) { wakeLock.release().then(() => wakeLock = null); }
-        stopWakeLoop();
-        statusBox.innerText = "System: Standby";
+        statusBox.innerText = "Status: Standby";
         statusBox.className = "status-badge inactive";
         document.getElementById('fake-cursor').style.display = 'none';
         document.getElementById('start-btn').style.opacity = '1';
